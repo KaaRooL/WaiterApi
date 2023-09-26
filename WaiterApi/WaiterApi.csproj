@@ -4,6 +4,7 @@
     <TargetFramework>net7.0</TargetFramework>
     <UserSecretsId>99fe12ba-a316-4028-b910-a9b34613be8f</UserSecretsId>
     <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
+    <RootNamespace>Waiter</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup>
