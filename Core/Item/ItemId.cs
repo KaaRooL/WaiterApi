@@ -1,6 +1,6 @@
 ﻿using Core.Base.Type;
 
-namespace Core;
+namespace Core.Item;
 
 public class ItemId : GuidId
 {

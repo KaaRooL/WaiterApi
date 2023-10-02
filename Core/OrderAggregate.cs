@@ -5,50 +5,70 @@
 
 using System.Reflection.Metadata.Ecma335;
 using Core.Base.Aggregate;
-using Core.Base.Entity;
 using Core.Base.Type;
 using Core.Item;
 
 namespace Core;
 
-public class OrderAggregate: AggregateRootBase
+public class OrderAggregate : AggregateRootBase
 {
     private ISet<AmountEntity> _amountValues;
     private ISet<ItemEntity> _items;
-    public TableEntity Table { get; set; }
     public virtual IEnumerable<AmountEntity> Amounts
     {
         get => _amountValues;
         private set => _amountValues = new HashSet<AmountEntity>(value);
     }
-    
+
     public virtual IEnumerable<ItemEntity> Items
     {
         get => _items;
         private set => _items = new HashSet<ItemEntity>(value);
     }
+    public OrderId OrderId { get; set; }
+    public decimal Tip { get; set; }
+    public string OrderStatus { get; set; }
+    public WaiterId WaiterId { get; set; }
+    public WaiterEntity Waiter { get; set; }
+    public TableId TableId { get; set; }
+    public TableEntity Table { get; set; }
 
-}
-
-public class AmountEntity: EntityBase
-{
-    public AmountId AmountId { get; set; }
-    public decimal Value { get; private set; }
-    public PayerValue Payer { get; set; }
-    
-}
-
-public class PayerValue
-{
-}
-
-public class AmountId : GuidId
-{
-    private AmountId(Guid id) : base(id)
+    public OrderAggregate()
     {
+        
+    }
+    
+    private OrderAggregate(WaiterEntity waiter, TableEntity table)
+    {
+        Waiter = waiter;
+        Table = table;
+        OrderId = Guid.NewGuid();
+        OrderStatus = OrderStatusDictionary.Open;
+    }
+    
+
+    public static OrderAggregate Create(WaiterEntity waiter, TableEntity table)
+    {
+        return new OrderAggregate(waiter, table);
     }
 
-    public static implicit operator AmountId(Guid id) => new(id);
-    
-    public static AmountId Create() => new(Guid.NewGuid());
+    public void AddItem(ItemEntity item)
+    {
+        _items.Add(item);
+    }
+
+    public void AddAmount(AmountEntity amount)
+    {
+        _amountValues.Add(amount);
+    }
+
+    public void RemoveItem(ItemEntity item)
+    {
+        _items.Remove(item);
+    }
+
+    public void Close()
+    {
+        OrderStatus = OrderStatusDictionary.Closed;
+    }
 }

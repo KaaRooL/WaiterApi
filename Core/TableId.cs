@@ -4,7 +4,7 @@ namespace Core;
 
 public class TableId : GuidId
 {
-    private TableId(Guid id) : base(id)
+    public TableId(Guid id) : base(id)
     {
     }
 
