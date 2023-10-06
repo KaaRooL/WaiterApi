@@ -8,9 +8,9 @@ public class ItemEntity: EntityBase
     public string Name { get; private set; }
     public decimal Price { get; private set; }
     public OrderId OrderId { get; set; }
-    public OrderAggregate Order { get; set; }
+    public virtual OrderAggregate Order { get; set; }
 
-    public ItemEntity()
+    private ItemEntity()
     {
         
     }

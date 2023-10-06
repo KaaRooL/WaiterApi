@@ -27,7 +27,6 @@ public class WaiterDbContext : DbContext
     public WaiterDbContext(DbContextOptions<WaiterDbContext> options, IConfiguration configuration):base(options)
     {
         _configuration = configuration;
-
     }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)

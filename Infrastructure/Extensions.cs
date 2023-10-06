@@ -29,17 +29,15 @@ public static class Extensions
             o.AddInterceptors(sp.GetRequiredService<AuditableInterceptor>());
         });
         
-        
-        
         AddFirebase(services, configuration);
-
         services.RegisterRepositories();
-        
         return services;
-        
-        
     }
 
+    public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder app)
+    {
+        return app;
+    }
     private static void AddFirebase(IServiceCollection services, IConfiguration configuration)
     {
         var filePath = configuration.GetSection("Firebase:KeyPath");
@@ -57,14 +55,11 @@ public static class Extensions
                         JwtBearerDefaults.AuthenticationScheme, _ => { });
     }
 
-    public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder app)
-    {
-        return app;
-    }
-    
-    public static void RegisterRepositories(this IServiceCollection serviceCollection)
+
+    private static void RegisterRepositories(this IServiceCollection serviceCollection)
     {
         serviceCollection.AddTransient<IUnitOfWork,UnitOfWork>();
+        serviceCollection.AddTransient<IOrderAggregateRepository,OrderAggregateRepository>();
 
     }
 }

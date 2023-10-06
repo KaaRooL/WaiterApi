@@ -18,6 +18,5 @@ public class OrderAggregateConfiguration : IEntityTypeConfiguration<OrderAggrega
         builder.HasMany(u => u.Items).WithOne(i => i.Order).HasForeignKey(i=>i.OrderId);
         builder.HasMany(u => u.Amounts).WithOne(a => a.Order).HasForeignKey(a => a.OrderId);
         builder.HasOne(o=>o.Table).WithMany().HasForeignKey(o=>o.TableId);
-        
     }
 }

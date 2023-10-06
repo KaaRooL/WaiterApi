@@ -13,6 +13,11 @@ namespace Common;
 
 public static class Extensions
 {
+
+    public static void RegisterIdentityService(this IServiceCollection services)
+    {
+        services.AddTransient<IIdentityService, IdentityService>();
+    }
     public static void RegisterCQRS(this IServiceCollection services)
     {
         services.AddTransient<IDispatcher, Dispatcher.Dispatcher>();

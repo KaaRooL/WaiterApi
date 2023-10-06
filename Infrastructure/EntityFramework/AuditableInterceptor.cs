@@ -33,7 +33,7 @@ public class AuditableInterceptor : SaveChangesInterceptor
         var entries = context.ChangeTracker.Entries<Auditable>();
 
         string userName = (_httpContextAccessor?.HttpContext != null
-                ? IdentityHelper.GetUserInfo(_httpContextAccessor.HttpContext.User).ToString()
+                ? IdentityHelper.GetUserInfo(_httpContextAccessor.HttpContext.User).Username
                 : "system")!;
 
         foreach (var entry in entries)

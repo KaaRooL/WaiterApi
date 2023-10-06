@@ -8,9 +8,9 @@ public class AmountEntity: EntityBase
     public decimal Value { get; private set; }
     public PayerValue Payer { get; set; }
     public OrderId OrderId { get; set; }
-    public OrderAggregate Order { get; set; }
+    public virtual OrderAggregate Order { get; set; }
 
-    public AmountEntity()
+    private AmountEntity()
     {
         
     }

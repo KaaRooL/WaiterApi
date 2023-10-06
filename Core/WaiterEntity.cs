@@ -7,23 +7,20 @@ public class WaiterEntity: EntityBase
     public WaiterId WaiterId { get; set; }
     public string Name { get; set; }
 
-    public string ExternalId { get; set; }
-    
-    public WaiterEntity()
+    private WaiterEntity()
     {
         
     }
 
-    private WaiterEntity(string waiterName, string waiterExternalId)
+    private WaiterEntity(string waiterName)
     {
         Name = waiterName;
         WaiterId = Guid.NewGuid();
-        ExternalId = waiterExternalId;
     }
 
 
-    public static WaiterEntity Create(string waiterName, string waiterExternalId)
+    public static WaiterEntity Create(string waiterName)
     {
-        return new WaiterEntity(waiterName, waiterExternalId);
+        return new WaiterEntity(waiterName);
     }
 }

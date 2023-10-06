@@ -3,9 +3,7 @@
  * You may not use, distribute, make copy of, and modify this code without express written permission by Patco, LLC.
  */
 
-using System.Reflection.Metadata.Ecma335;
 using Core.Base.Aggregate;
-using Core.Base.Type;
 using Core.Item;
 
 namespace Core;
@@ -29,11 +27,11 @@ public class OrderAggregate : AggregateRootBase
     public decimal Tip { get; set; }
     public string OrderStatus { get; set; }
     public WaiterId WaiterId { get; set; }
-    public WaiterEntity Waiter { get; set; }
+    public virtual WaiterEntity Waiter { get; set; }
     public TableId TableId { get; set; }
-    public TableEntity Table { get; set; }
+    public virtual TableEntity Table { get; set; }
 
-    public OrderAggregate()
+    private OrderAggregate()
     {
         
     }

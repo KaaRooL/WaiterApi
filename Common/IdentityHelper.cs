@@ -8,10 +8,9 @@ namespace Common;
 
 public static class IdentityHelper
 {
-    public static UserInfo GetUserInfo(ClaimsPrincipal httpContextUser)
+    public static UserInfo GetUserInfo(ClaimsPrincipal claimsPrincipal)
     {
-
-        var claims = httpContextUser.Claims.ToDictionary(k => k.Type, v => v.Value);
+        var claims = claimsPrincipal.Claims.ToDictionary(k => k.Type, v => v.Value);
 
         UserInfo userInfoDto = new UserInfo(claims["id"], claims["email"], bool.Parse(
                 claims["email_verified"]), claims["username"]);

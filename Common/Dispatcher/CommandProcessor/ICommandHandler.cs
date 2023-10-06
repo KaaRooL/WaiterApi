@@ -4,10 +4,6 @@
  */
 namespace Common.Dispatcher.CommandProcessor
 {
-    public interface ICommandHandlerAsync<in TCommand> where TCommand : ICommand
-    {
-        Task HandleAsync(TCommand command);
-    }
     public interface ICommandHandler<in TCommand> where TCommand : ICommand
     {
         void Handle(TCommand command);
