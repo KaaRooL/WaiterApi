@@ -1,3 +1,3 @@
 ﻿namespace Application.Dto;
 
-public record OrderDto(Guid OrderId, string TableName);
+public record OrderDto(Guid OrderId, string TableName, ItemDto[] ItemDtos);

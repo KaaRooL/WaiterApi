@@ -4,14 +4,16 @@
  */
 
 using Core.Base.Aggregate;
+using Core.DomainEvent;
 using Core.Item;
+using Core.Order.DomainEvents;
 
 namespace Core;
 
 public class OrderAggregate : AggregateRootBase
 {
-    private ISet<AmountEntity> _amountValues;
-    private ISet<ItemEntity> _items;
+    private ISet<AmountEntity> _amountValues = new HashSet<AmountEntity>();
+    private ISet<ItemEntity> _items = new HashSet<ItemEntity>();
     public virtual IEnumerable<AmountEntity> Amounts
     {
         get => _amountValues;
@@ -42,6 +44,7 @@ public class OrderAggregate : AggregateRootBase
         Table = table;
         OrderId = Guid.NewGuid();
         OrderStatus = OrderStatusDictionary.Open;
+        AddEvent(new OrderCreatedEvent(this));
     }
     
 
@@ -53,6 +56,12 @@ public class OrderAggregate : AggregateRootBase
     public void AddItem(ItemEntity item)
     {
         _items.Add(item);
+        AddItemsChangedEvent();
+    }
+
+    private void AddItemsChangedEvent()
+    {
+        AddEvent(new ItemsChangesEvent(this));
     }
 
     public void AddAmount(AmountEntity amount)
@@ -63,6 +72,7 @@ public class OrderAggregate : AggregateRootBase
     public void RemoveItem(ItemEntity item)
     {
         _items.Remove(item);
+        AddItemsChangedEvent();
     }
 
     public void Close()

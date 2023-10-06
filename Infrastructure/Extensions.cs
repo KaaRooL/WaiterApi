@@ -27,6 +27,7 @@ public static class Extensions
             string connectionString = configuration.GetConnectionString("WaiterApiDatabase");
             o.UseNpgsql(connectionString);
             o.AddInterceptors(sp.GetRequiredService<AuditableInterceptor>());
+            o.AddInterceptors(sp.GetRequiredService<AuditableInterceptor>());
         });
         
         AddFirebase(services, configuration);

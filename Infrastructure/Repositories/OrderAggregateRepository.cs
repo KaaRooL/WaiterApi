@@ -8,11 +8,14 @@ namespace Infrastructure.Repositories;
 public class OrderAggregateRepository : IOrderAggregateRepository
 {
     private readonly WaiterDbContext _context;
+
     public OrderAggregateRepository(WaiterDbContext context)
     {
         _context = context;
     }
-    public async Task<OrderAggregate?> GetAsync(OrderId id) => await _context.Orders.Include(o=>o.Table).SingleOrDefaultAsync(o=>o.OrderId == id);
+
+    public async Task<OrderAggregate?> GetAsync(OrderId id) =>
+            await _context.Orders.Include(o => o.Table).Include(o => o.Items).Include(o => o.Amounts).SingleOrDefaultAsync(o => o.OrderId == id);
 
     public async Task AddAsync(OrderAggregate order)
     {
@@ -25,5 +28,5 @@ public class OrderAggregateRepository : IOrderAggregateRepository
         return Task.CompletedTask;
     }
 
-    public Task<OrderAggregate[]> GetAllAsync() => _context.Orders.Include(o=>o.Table).ToArrayAsync();
+    public Task<OrderAggregate[]> GetAllAsync() => _context.Orders.Include(o => o.Table).Include(o => o.Items).Include(o => o.Amounts).ToArrayAsync();
 }

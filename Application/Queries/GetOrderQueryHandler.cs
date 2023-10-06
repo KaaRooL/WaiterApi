@@ -20,7 +20,7 @@ public class GetOrderQueryHandler : IQueryHandlerAsync<GetOrderQuery, OrderDto>
 
         if (order is null)
         {
-            throw new ApplicationException("Order do not exists");
+            throw new ApplicationException($"Order with id {query.OrderId} does not exist");
         }
         return order.AsDto();
     }

@@ -14,6 +14,7 @@ public class OrderAggregateConfiguration : IEntityTypeConfiguration<OrderAggrega
         builder.Property(u=>u.WaiterId).HasColumnName("waiter_id").HasConversion(wai => wai.Id, dbValue => new WaiterId(dbValue)).IsRequired();
         builder.Property(u=>u.TableId).HasColumnName("table_id").HasConversion(wai => wai.Id, dbValue => new TableId(dbValue)).IsRequired();
         builder.Property(u=>u.OrderStatus).HasColumnName("order_status").IsRequired();
+        builder.Property(u=>u.Version).HasColumnName("version").IsRequired();
 
         builder.HasMany(u => u.Items).WithOne(i => i.Order).HasForeignKey(i=>i.OrderId);
         builder.HasMany(u => u.Amounts).WithOne(a => a.Order).HasForeignKey(a => a.OrderId);

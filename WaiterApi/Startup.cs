@@ -77,6 +77,9 @@ namespace Waiter
                 endpoints.MapGet("/orders", (IDispatcher dispatcher) => dispatcher.RunAsync(new GetOrdersQuery()));
                 endpoints.MapGet("/order/{id}", (IDispatcher dispatcher, Guid id) => dispatcher.RunAsync(new GetOrderQuery(id)));
                 endpoints.MapPost("/orders", (IDispatcher dispatcher, [FromBody]CreateOrderCommand command) => dispatcher.RunAsync(command));
+                endpoints.MapPost("/orders/addItem", (IDispatcher dispatcher, [FromBody]AddItemCommand command) => dispatcher.RunAsync(command));
+                endpoints.MapPost("/orders/removeItem", (IDispatcher dispatcher, [FromBody]RemoveItemCommand command) => dispatcher.RunAsync(command));
+                
                 
                 
             });
